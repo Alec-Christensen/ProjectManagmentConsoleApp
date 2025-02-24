@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProjectManagmentConsoleApp.Entities;
 
 namespace ProjectManagmentConsoleApp.Data;
 
