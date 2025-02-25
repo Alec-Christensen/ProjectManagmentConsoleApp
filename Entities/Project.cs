@@ -18,7 +18,7 @@ public class Project
     public DateTime EndDate { get; set; }
 
     [Required]
-    [Column(TypeName = "nvarchar(50")]
+    [Column(TypeName = "nvarchar(50)")]
     public string Status { get; set; } = "Not Started";
 
     [Required]
