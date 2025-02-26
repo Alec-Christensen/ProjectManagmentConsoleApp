@@ -3,7 +3,7 @@ using ProjectManagmentConsoleApp.Entities;
 
 namespace ProjectManagmentConsoleApp.Data;
 
-class AppDbContext : DbContext
+public class AppDbContext : DbContext
 {
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Project> Projects { get; set; }
