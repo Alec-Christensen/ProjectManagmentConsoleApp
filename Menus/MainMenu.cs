@@ -1,19 +1,16 @@
-﻿using ProjectManagmentConsoleApp.Data;
-using ProjectManagmentConsoleApp.Entities;
-using ProjectManagmentConsoleApp.Repositories;
+﻿using ProjectManagmentConsoleApp.Interfaces;
 
 namespace ProjectManagmentConsoleApp.Menus;
 
 public class MainMenu
 {
-    private readonly CustomerRepository _customerRepo;
-    private readonly ProjectRepository _projectRepo;
+    private readonly ICustomerService _customerService;
+    private readonly IProjectService _projectService;
 
-    public MainMenu()
+    public MainMenu(ICustomerService customerService, IProjectService projectService)
     {
-        var context = new AppDbContext();
-        _customerRepo = new CustomerRepository(context);
-        _projectRepo = new ProjectRepository(context);
+        _customerService = customerService;
+        _projectService = projectService;
     }
 
     public void Show()
@@ -70,16 +67,14 @@ public class MainMenu
 
         } while (string.IsNullOrEmpty(name));
 
-        var customer = new Customer { Name = name };
-        _customerRepo.AddCustomer(customer);
-
+        _customerService.AddCustomer(name);
         Console.WriteLine("Customer added successfully!");
         Console.ReadLine();
     }
 
     private void ViewAllCustomers()
     {
-        var customers = _customerRepo.GetAllCustomers();
+        var customers = _customerService.GetAllCustomers();
         Console.WriteLine("\n=== Customers ===");
 
         if (customers.Count == 0)
@@ -106,22 +101,14 @@ public class MainMenu
         Console.Write("Enter customer ID for this project: ");
         if (int.TryParse(Console.ReadLine(), out int customerId))
         {
-            var customer = _customerRepo.GetCustomerById(customerId);
+            var customer = _customerService.GetCustomerById(customerId);
             if (customer == null)
             {
                 Console.WriteLine("Customer ID not found. Please enter a valid customer.");
             }
             else
             {
-                var project = new Project
-                {
-                    Name = name,
-                    CustomerId = customerId,
-                    StartDate = DateTime.Now,
-                    EndDate = DateTime.Now.AddMonths(1)
-                };
-                _projectRepo.AddProject(project);
-
+                _projectService.AddProject(name, customerId);
                 Console.WriteLine("Project added successfully!");
             }
         }
@@ -135,7 +122,7 @@ public class MainMenu
 
     private void ViewAllProjects()
     {
-        var projects = _projectRepo.GetAllProjects();
+        var projects = _projectService.GetAllProjects();
         Console.WriteLine("\n=== Projects ===");
 
         if (projects.Count == 0)
