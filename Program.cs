@@ -1,7 +1,10 @@
-﻿class Program
+﻿using ProjectManagmentConsoleApp.Menus;
+
+class Program
 {
     static void Main()
     {
-        Console.WriteLine("Hello World!");
+        MainMenu menu = new MainMenu();
+        menu.Show();
     }
 }
