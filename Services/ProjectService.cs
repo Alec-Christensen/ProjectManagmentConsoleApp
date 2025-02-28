@@ -1,4 +1,5 @@
 ﻿using ProjectManagmentConsoleApp.Entities;
+using ProjectManagmentConsoleApp.Factories;
 using ProjectManagmentConsoleApp.Interfaces;
 
 namespace ProjectManagmentConsoleApp.Services;
@@ -14,13 +15,7 @@ public class ProjectService : IProjectService
 
     public void AddProject(string name, int customerId)
     {
-        var project = new Project
-        {
-            Name = name,
-            CustomerId = customerId,
-            StartDate = DateTime.Now,
-            EndDate = DateTime.Now.AddMonths(1)
-        };
+        var project = ProjectFactory.Create(name, customerId);
         _projectRepository.AddProject(project);
     }
 

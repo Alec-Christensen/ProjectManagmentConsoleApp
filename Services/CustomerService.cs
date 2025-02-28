@@ -1,4 +1,5 @@
 ﻿using ProjectManagmentConsoleApp.Entities;
+using ProjectManagmentConsoleApp.Factories;
 using ProjectManagmentConsoleApp.Interfaces;
 
 namespace ProjectManagmentConsoleApp.Services;
@@ -14,7 +15,7 @@ public class CustomerService : ICustomerService
 
     public void AddCustomer(string name)
     {
-        var customer = new Customer { Name = name };
+        var customer = CustomerFactory.Create(name);
         _customerRepository.AddCustomer(customer);
     }
 
