@@ -38,4 +38,9 @@ public class ProjectService : IProjectService
             _projectRepository.UpdateProject(project);
         }
     }
+
+    public void DeleteProject(int id)
+    {
+        _projectRepository.DeleteProject(id);
+    }
 }

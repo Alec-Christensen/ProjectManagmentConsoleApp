@@ -8,4 +8,5 @@ public interface IProjectService
     List<Project> GetAllProjects();
     Project? GetProjectById(int id);
     void UpdateProject(int id, string newName);
+    void DeleteProject(int id);
 }

@@ -47,6 +47,9 @@ public class MainMenu
                 case "5":
                     UpdateProject();
                     break;
+                case "6":
+                    DeleteProject();
+                    break;
                 case "7":
                     return;
                 default:
@@ -181,5 +184,38 @@ public class MainMenu
         Console.ReadLine();
     }
 
+    private void DeleteProject()
+    {
+        Console.Write("Enter the project ID to delete: ");
+        if (int.TryParse(Console.ReadLine(), out int projectId))
+        {
+            var project = _projectService.GetProjectById(projectId);
+            if (project == null)
+            {
+                Console.WriteLine("Project not found.");
+            }
+            else
+            {
+                Console.Write("Are you sure you want to delete this project? (y/n): ");
+                string confirmation = Console.ReadLine()?.ToLower() ?? "";
+                if (confirmation == "y")
+                {
+                    _projectService.DeleteProject(projectId);
+                    Console.WriteLine("Project deleted successfully!");
+                }
+                else
+                {
+                    Console.WriteLine("Deletion cancelled.");
+                }
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid project ID.");
+        }
+
+        Console.WriteLine("Press Enter to return to menu...");
+        Console.ReadLine();
+    }
 }
 
