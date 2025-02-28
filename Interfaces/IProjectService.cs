@@ -7,4 +7,5 @@ public interface IProjectService
     void AddProject(string name, int customerId);
     List<Project> GetAllProjects();
     Project? GetProjectById(int id);
+    void UpdateProject(int id, string newName);
 }

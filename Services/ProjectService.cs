@@ -28,4 +28,14 @@ public class ProjectService : IProjectService
     {
         return _projectRepository.GetProjectById(id);
     }
+
+    public void UpdateProject(int id, string newName)
+    {
+        var project = _projectRepository.GetProjectById(id);
+        if (project != null)
+        {
+            project.Name = newName;
+            _projectRepository.UpdateProject(project);
+        }
+    }
 }

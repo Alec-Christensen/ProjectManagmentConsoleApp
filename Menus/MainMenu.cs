@@ -23,7 +23,9 @@ public class MainMenu
             Console.WriteLine("2. View All Customers");
             Console.WriteLine("3. Add Project");
             Console.WriteLine("4. View All Projects");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine("5. Update Project");
+            Console.WriteLine("6. Delete Project");
+            Console.WriteLine("7. Exit");
             Console.Write("Select an option: ");
 
             string choice = Console.ReadLine() ?? "";
@@ -43,6 +45,9 @@ public class MainMenu
                     ViewAllProjects();
                     break;
                 case "5":
+                    UpdateProject();
+                    break;
+                case "7":
                     return;
                 default:
                     Console.WriteLine("Invalid choice, press Enter to try again...");
@@ -140,5 +145,41 @@ public class MainMenu
         Console.WriteLine("\nPress Enter to return to menu...");
         Console.ReadLine();
     }
+
+    private void UpdateProject()
+    {
+        Console.Write("Enter the project ID to update: ");
+        if (int.TryParse(Console.ReadLine(), out int projectId))
+        {
+            var project = _projectService.GetProjectById(projectId);
+            if (project == null)
+            {
+                Console.WriteLine("Project not found.");
+            }
+            else
+            {
+                Console.Write("Enter the new project name: ");
+                string newName = Console.ReadLine()?.Trim() ?? "";
+
+                if (!string.IsNullOrEmpty(newName))
+                {
+                    _projectService.UpdateProject(projectId, newName);
+                    Console.WriteLine("Project updated successfully!");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Project name cannot be empty.");
+                }
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid project ID.");
+        }
+
+        Console.WriteLine("Press Enter to return to menu...");
+        Console.ReadLine();
+    }
+
 }
 
